@@ -1,9 +1,9 @@
 const express = require("express");
-const cors = require('cors')
+const cors = require('cors');
 const app = express();
-app.use(cors())
+app.use(cors());
 
-let list = [{ task: "" }];
+let list = [{ task: "hello" }];
 
 app.get("/list", (req, res) => {
   res.json(list);
@@ -31,6 +31,7 @@ app.get("/list/add?", (req, res) => {
     res.json({ status: 403, error: true, message: errors });
   } else {
     list.push({ task: task });
+    console.log(list);
     res.json({ task: task });
   }
 });
