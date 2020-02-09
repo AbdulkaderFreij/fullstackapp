@@ -11,12 +11,9 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    fetch("/list/add?")
+    fetch("/list")
       .then(res => res.json())
-      .then(list =>
-        this.setState({ list }
-        )
-      );
+      .then(list => this.setState({ list }));
   }
 
   changeUserInput(input) {
@@ -26,7 +23,9 @@ class App extends Component {
   addToList(input) {
     let newList = this.state.list;
     newList.push(input);
-    this.setState({ list: newList, task: "" });
+    fetch("/list/add?task=input")
+      .then(res => res.json())
+      .then(list => this.setState({ list: newList, task: "" }));
   }
 
   render() {
@@ -37,16 +36,13 @@ class App extends Component {
           value={this.state.task}
           onChange={e => this.changeUserInput(e.target.value)}
         />
-        <button
-          type="submit"
-          onClick={() => this.addToList(this.state.task)}
-        >
+        <button type="submit" onClick={() => this.addToList(this.state.task)}>
           add
         </button>
         <ul>
-          {/* {this.state.list.map(task => (
-            <li>{task.task}</li> */}
-            {console.log(this.state.list)}
+          {this.state.list.map(task => (
+            <li>{task.task}</li>
+          
           ))}
         </ul>
       </div>
