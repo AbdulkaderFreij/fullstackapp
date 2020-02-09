@@ -10,20 +10,20 @@ class App extends Component {
       list: []
     };
   }
-  componentDidMount() {
-    fetch("/list")
+  async componentDidMount() {
+    fetch("http://localhost:5000/list")
       .then(res => res.json())
       .then(list => this.setState({ list }));
   }
 
-  changeUserInput() {
-    this.setState({ task: this.state.task });
+  changeUserInput(input) {
+    this.setState({ task: input});
   }
 
   addToList() {
     let newList = this.state.list;
     newList.push({task:this.state.task});
-    fetch(`/list/add?task=${this.state.task}`)
+    fetch(`http://localhost:5000/list/add?task=${this.state.task}`)
       .then(res => res.json())
       .then(list => this.setState({ list: newList, task: "" }));
   }
